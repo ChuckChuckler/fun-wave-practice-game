@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://2eyt0uxhnhvj"]
+
+[ext_resource type="Script" uid="uid://sees5bj47lnx" path="res://manager.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://bd7i268qmnnoc" path="res://waveManager.gd" id="2_h2yge"]
+
+[node name="main" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -21.0
+offset_top = -10.0
+offset_right = 1168.0
+offset_bottom = 667.0
+
+[node name="manager" type="Node2D" parent="."]
+script = ExtResource("1_0xm2m")
+
+[node name="wave" type="Node2D" parent="."]
+script = ExtResource("2_h2yge")
+
+[node name="lambda" type="Line2D" parent="wave"]
+points = PackedVector2Array(4, 322, 1147, 320)
+width = 5.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="equil" type="Line2D" parent="wave"]
+points = PackedVector2Array(6, 318, 1145, 318)
+width = 1.0
+default_color = Color(0.48570347, 0.48570353, 0.48570347, 1)
+
+[node name="typeOfPipe" type="RichTextLabel" parent="."]
+offset_left = 69.0
+offset_top = 14.0
+offset_right = 1228.0
+offset_bottom = 80.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Closed pipe"
+
+[node name="harmonic" type="RichTextLabel" parent="."]
+offset_left = 844.0
+offset_top = 20.0
+offset_right = 1078.0
+offset_bottom = 60.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "1 λ yay yay awsome :)"
+
+[node name="newWaveButton" type="Button" parent="."]
+offset_left = 478.0
+offset_top = 18.0
+offset_right = 616.0
+offset_bottom = 49.0
+text = "create new wave"
+
+[connection signal="pressed" from="newWaveButton" to="wave" method="_create_new_wave"]
