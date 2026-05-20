@@ -9,11 +9,13 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-	
-func create_problem():
-	print_debug("hihi")
-	
 
 
-func create_new_wave() -> void:
-	pass # Replace with function body.
+func _switch_to_wave() -> void:
+	$"../solve_interface".visible=false
+	$"../wave_interface".visible=true
+
+
+func _go_to_solve() -> void:
+	$"../solve_interface".visible=true
+	$"../wave_interface".visible=false

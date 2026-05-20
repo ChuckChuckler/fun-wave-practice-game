@@ -1,12 +1,16 @@
 extends Node2D
 
-const FREQ:float=2.0
+#these are for the wave's appearance and don't change
+const FREQ:float=1.5
 const WAVELENGTH:float=1000.0
 const POINT_COUNT:int=100
 
+#these change with each question
 var harmonic:int=1
 var amp:float=75.0
 var coeffL:int=2 #2 if open on both ends, 4 if open on one
+var len_sample:float=0.5 #in m
+var sound_speed:float=340.0 #m/s
 
 var time:float=0.0
 
@@ -21,10 +25,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	time+=delta
 	update_wave()
-	
-func set_harmonic()->void:
-	harmonic = randi_range(1,5)
-	
 
 func update_wave()->void:
 	var points = PackedVector2Array()
@@ -32,7 +32,7 @@ func update_wave()->void:
 	
 	for i in range(POINT_COUNT):
 		var x:float=i*step
-		var k = TAU/((WAVELENGTH*2)/harmonic)
+		var k = TAU/((WAVELENGTH*coeffL)/harmonic)
 		var w = TAU*FREQ
 		var y = 2.0*amp*sin(k*x)*cos(w*time)
 		
@@ -41,5 +41,27 @@ func update_wave()->void:
 
 
 func _create_new_wave() -> void:
-	set_harmonic()
+	coeffL = randi_range(1,2)*2
+	len_sample=randi_range(10,100)/100.0
+	sound_speed=randi_range(3000,4000)/10.0
 	amp=randi_range(75,125)
+	
+	$"../../solve_interface/HBoxContainer/info/length".text="Length shown: " + str(len_sample) + " m"
+	$"../../solve_interface/HBoxContainer/info/speedOfSound".text="Speed of medium right now: " + str(sound_speed) + " m/s"
+	if coeffL==2:
+		$"../../solve_interface/HBoxContainer/info/typeOfPipe".text="Both sides open"
+		harmonic = randi_range(1,5)
+	else:
+		$"../../solve_interface/HBoxContainer/info/typeOfPipe".text="One side open"
+		harmonic = (randi_range(1,5)*2)-1
+	
+	var result = calculate()
+	print_debug(str(result.harmonic) + ", " + str(result.lambda) + ", " + str(result.frequency))
+	
+func calculate()->Dictionary:
+	var lmb:float=(len_sample*coeffL)/harmonic
+	return {
+		"harmonic":harmonic,
+		"lambda":lmb,
+		"frequency":sound_speed/lmb
+	}

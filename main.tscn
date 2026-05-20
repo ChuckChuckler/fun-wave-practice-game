@@ -9,7 +9,6 @@
 script = ExtResource("1_0xm2m")
 
 [node name="wave_interface" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -79,7 +78,7 @@ layout_mode = 0
 offset_left = 32.0
 offset_top = 116.0
 offset_right = 1127.0
-offset_bottom = 666.0
+offset_bottom = 627.0
 metadata/_edit_group_ = true
 
 [node name="info" type="VBoxContainer" parent="solve_interface/HBoxContainer"]
@@ -164,4 +163,22 @@ offset_top = 30.0
 offset_right = 215.0
 offset_bottom = 56.0
 
+[node name="shoot" type="Button" parent="solve_interface"]
+layout_mode = 0
+offset_left = 490.0
+offset_top = 601.0
+offset_right = 664.0
+offset_bottom = 631.0
+text = "shoot wave!!!!"
+
+[node name="backButton" type="Button" parent="solve_interface"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 7.0
+offset_right = 111.0
+offset_bottom = 38.0
+text = "back"
+
 [connection signal="pressed" from="wave_interface/newWaveButton" to="wave_interface/wave" method="_create_new_wave"]
+[connection signal="pressed" from="wave_interface/Button" to="manager" method="_go_to_solve"]
+[connection signal="pressed" from="solve_interface/backButton" to="manager" method="_switch_to_wave"]
