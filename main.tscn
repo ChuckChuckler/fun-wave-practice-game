@@ -5,49 +5,163 @@
 
 [node name="main" type="Node2D"]
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="manager" type="Node2D" parent="."]
+script = ExtResource("1_0xm2m")
+
+[node name="wave_interface" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="bg" type="ColorRect" parent="wave_interface"]
+layout_mode = 0
 offset_left = -21.0
 offset_top = -10.0
 offset_right = 1168.0
 offset_bottom = 667.0
 
-[node name="manager" type="Node2D" parent="."]
-script = ExtResource("1_0xm2m")
-
-[node name="wave" type="Node2D" parent="."]
+[node name="wave" type="Node2D" parent="wave_interface"]
 script = ExtResource("2_h2yge")
 
-[node name="lambda" type="Line2D" parent="wave"]
+[node name="lambda" type="Line2D" parent="wave_interface/wave"]
 points = PackedVector2Array(4, 322, 1147, 320)
 width = 5.0
 default_color = Color(0, 0, 0, 1)
 
-[node name="equil" type="Line2D" parent="wave"]
+[node name="equil" type="Line2D" parent="wave_interface/wave"]
 points = PackedVector2Array(6, 318, 1145, 318)
 width = 1.0
 default_color = Color(0.48570347, 0.48570353, 0.48570347, 1)
 
-[node name="typeOfPipe" type="RichTextLabel" parent="."]
-offset_left = 69.0
-offset_top = 14.0
-offset_right = 1228.0
-offset_bottom = 80.0
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-text = "Closed pipe"
-
-[node name="harmonic" type="RichTextLabel" parent="."]
-offset_left = 844.0
-offset_top = 20.0
-offset_right = 1078.0
-offset_bottom = 60.0
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-text = "1 λ yay yay awsome :)"
-
-[node name="newWaveButton" type="Button" parent="."]
-offset_left = 478.0
-offset_top = 18.0
-offset_right = 616.0
-offset_bottom = 49.0
+[node name="newWaveButton" type="Button" parent="wave_interface"]
+layout_mode = 0
+offset_left = 380.0
+offset_top = 17.0
+offset_right = 518.0
+offset_bottom = 48.0
 text = "create new wave"
 
-[connection signal="pressed" from="newWaveButton" to="wave" method="_create_new_wave"]
+[node name="Button" type="Button" parent="wave_interface"]
+layout_mode = 0
+offset_left = 557.0
+offset_top = 16.0
+offset_right = 690.0
+offset_bottom = 50.0
+text = "do math stuff"
+
+[node name="solve_interface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="bg" type="ColorRect" parent="solve_interface"]
+layout_mode = 0
+offset_left = -29.0
+offset_top = -16.0
+offset_right = 1221.0
+offset_bottom = 688.0
+
+[node name="title" type="RichTextLabel" parent="solve_interface"]
+layout_mode = 0
+offset_top = 19.0
+offset_right = 1148.0
+offset_bottom = 59.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "CONTROL PANEL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="solve_interface"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 116.0
+offset_right = 1127.0
+offset_bottom = 666.0
+metadata/_edit_group_ = true
+
+[node name="info" type="VBoxContainer" parent="solve_interface/HBoxContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+metadata/_edit_group_ = true
+
+[node name="typeOfPipe" type="RichTextLabel" parent="solve_interface/HBoxContainer/info"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Both sides open"
+
+[node name="length" type="RichTextLabel" parent="solve_interface/HBoxContainer/info"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Length shown"
+
+[node name="speedOfSound" type="RichTextLabel" parent="solve_interface/HBoxContainer/info"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Speed of sound right now: "
+
+[node name="stuffToSolve" type="VBoxContainer" parent="solve_interface/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="harmonic" type="Control" parent="solve_interface/HBoxContainer/stuffToSolve"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="label" type="RichTextLabel" parent="solve_interface/HBoxContainer/stuffToSolve/harmonic"]
+layout_mode = 0
+offset_right = 483.0
+offset_bottom = 40.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Harmonic (1-5)"
+
+[node name="input" type="TextEdit" parent="solve_interface/HBoxContainer/stuffToSolve/harmonic"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 30.0
+offset_right = 215.0
+offset_bottom = 56.0
+
+[node name="lambda" type="Control" parent="solve_interface/HBoxContainer/stuffToSolve"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="label" type="RichTextLabel" parent="solve_interface/HBoxContainer/stuffToSolve/lambda"]
+layout_mode = 0
+offset_right = 483.0
+offset_bottom = 40.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Wavelength (λ)"
+
+[node name="input" type="TextEdit" parent="solve_interface/HBoxContainer/stuffToSolve/lambda"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 30.0
+offset_right = 215.0
+offset_bottom = 56.0
+
+[node name="freq" type="Control" parent="solve_interface/HBoxContainer/stuffToSolve"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="label" type="RichTextLabel" parent="solve_interface/HBoxContainer/stuffToSolve/freq"]
+layout_mode = 0
+offset_right = 483.0
+offset_bottom = 40.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Frequency (Hz)"
+
+[node name="input" type="TextEdit" parent="solve_interface/HBoxContainer/stuffToSolve/freq"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 30.0
+offset_right = 215.0
+offset_bottom = 56.0
+
+[connection signal="pressed" from="wave_interface/newWaveButton" to="wave_interface/wave" method="_create_new_wave"]

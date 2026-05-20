@@ -1,11 +1,12 @@
 extends Node2D
 
-const AMP:float=75.0
 const FREQ:float=2.0
 const WAVELENGTH:float=1000.0
 const POINT_COUNT:int=100
 
 var harmonic:int=1
+var amp:float=75.0
+var coeffL:int=2 #2 if open on both ends, 4 if open on one
 
 var time:float=0.0
 
@@ -13,7 +14,7 @@ var time:float=0.0
 func _ready() -> void:
 	$equil.points[0].y=(get_viewport().size.y/2)
 	$equil.points[1].y=(get_viewport().size.y/2)
-	set_harmonic()
+	_create_new_wave()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,7 +24,6 @@ func _process(delta: float) -> void:
 	
 func set_harmonic()->void:
 	harmonic = randi_range(1,5)
-	$"../harmonic".text = "Harmonic " + str(harmonic)
 	
 
 func update_wave()->void:
@@ -34,11 +34,12 @@ func update_wave()->void:
 		var x:float=i*step
 		var k = TAU/((WAVELENGTH*2)/harmonic)
 		var w = TAU*FREQ
-		var y = 2.0*AMP*sin(k*x)*cos(w*time)
+		var y = 2.0*amp*sin(k*x)*cos(w*time)
 		
 		points.append(Vector2(x+60,y+(get_viewport().size.y/2)))	
 	$lambda.points=points
 
 
 func _create_new_wave() -> void:
-	pass # Replace with function body.
+	set_harmonic()
+	amp=randi_range(75,125)
