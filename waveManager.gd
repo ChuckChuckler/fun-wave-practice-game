@@ -55,13 +55,28 @@ func _create_new_wave() -> void:
 		$"../../solve_interface/HBoxContainer/info/typeOfPipe".text="One side open"
 		harmonic = (randi_range(1,5)*2)-1
 	
-	var result = calculate()
-	print_debug(str(result.harmonic) + ", " + str(result.lambda) + ", " + str(result.frequency))
-	
 func calculate()->Dictionary:
 	var lmb:float=(len_sample*coeffL)/harmonic
 	return {
 		"harmonic":harmonic,
 		"lambda":lmb,
-		"frequency":sound_speed/lmb
+		"freq":sound_speed/lmb
 	}
+
+func check_ans()->bool:
+	var harmonicIsCorrect:bool=false
+	var lambdaIsCorrect:bool=false
+	var freqIsCorrect:bool=false
+	
+	var result = calculate()
+	
+	if $"../../solve_interface/HBoxContainer/stuffToSolve/harmonic/input".text == str(harmonic):
+		harmonicIsCorrect=true
+	
+	if $"../../solve_interface/HBoxContainer/stuffToSolve/lambda/input".text >= str(result.lambda-0.2) and $"../../solve_interface/HBoxContainer/stuffToSolve/lambda/input".text <= str(result.lambda+0.2):
+		lambdaIsCorrect=true
+	
+	if $"../../solve_interface/HBoxContainer/stuffToSolve/freq/input".text >= str(result.freq-0.2) and $"../../solve_interface/HBoxContainer/stuffToSolve/freq/input".text <= str(result.freq+0.2):
+		freqIsCorrect=true
+	
+	return harmonicIsCorrect and lambdaIsCorrect and freqIsCorrect

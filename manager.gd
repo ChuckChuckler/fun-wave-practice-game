@@ -19,3 +19,12 @@ func _switch_to_wave() -> void:
 func _go_to_solve() -> void:
 	$"../solve_interface".visible=true
 	$"../wave_interface".visible=false
+
+
+func _check_shoot() -> void:
+	if $"../solve_interface/HBoxContainer/stuffToSolve/harmonic/input".text=="" or $"../solve_interface/HBoxContainer/stuffToSolve/lambda/input".text=="" or $"../solve_interface/HBoxContainer/stuffToSolve/freq/input".text=="":
+		$"../solve_interface/RichTextLabel".text="All fields must be filled to try a shot!"
+	else:
+		$"../solve_interface/RichTextLabel".text=""
+		var result:bool = $"../wave_interface/wave".check_ans()
+		print_debug(result)
