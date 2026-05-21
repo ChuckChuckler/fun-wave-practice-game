@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://pigfb45lfdm0"]
+
+[ext_resource type="Script" uid="uid://com4mk7x4gvc1" path="res://camera.gd" id="1_g3mwp"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8yeiw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_g3mwp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g3mwp"]
+albedo_color = Color(0.37036502, 0.37036428, 0.37036443, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ei2s5"]
+material = SubResource("StandardMaterial3D_g3mwp")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="desk" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.3658843, 0, 0, 0, 1, 0, 0, 0, 1, 1.1764652, 0, 0)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_8yeiw")
+
+[node name="camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9982129, 0.059759356, 0, -0.059759356, 0.9982129, 1.1559151, 1.118759, 1.857029)
+script = ExtResource("1_g3mwp")
+
+[node name="door_right" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 4.0464573, 0, 0, 0, 2.8925831, 5.050861, 0.77650166, 2.8256717)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_g3mwp")
+
+[node name="door_left" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 4.0464573, 0, 0, 0, 2.8925831, -2.6651392, 0.77650166, 2.8256717)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_g3mwp")
+
+[node name="wall_right" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.44784677, 0, 0, 0, 15.790982, 0, 0, 0, 14.093472, 5.029207, 0, 1.5606484)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_ei2s5")
+
+[node name="wall_left" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.44784677, 0, 0, 0, 15.790982, 0, 0, 0, 14.093472, -2.5334256, 0, 1.5606484)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_ei2s5")
+
+[node name="wall_right2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.9576007e-08, 0, 14.093472, 0, 15.790982, 0, -0.44784683, 0, -6.160452e-07, 0.6730037, 0, -3.8635097)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_ei2s5")
