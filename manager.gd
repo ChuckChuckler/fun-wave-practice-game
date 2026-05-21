@@ -28,3 +28,8 @@ func _check_shoot() -> void:
 		$"../solve_interface/RichTextLabel".text=""
 		var result:bool = $"../wave_interface/wave".check_ans()
 		print_debug(result)
+
+
+func _open_wave_machine() -> void:
+	$"../main_game".visible=false
+	$"../wave_interface".visible=true

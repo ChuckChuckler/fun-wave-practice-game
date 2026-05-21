@@ -8,7 +8,68 @@
 [node name="manager" type="Node2D" parent="."]
 script = ExtResource("1_0xm2m")
 
+[node name="main_game" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="sky" type="ColorRect" parent="main_game"]
+layout_mode = 0
+offset_left = -12.0
+offset_top = -11.0
+offset_right = 1159.0
+offset_bottom = 548.0
+color = Color(0.79291177, 0.8927658, 0.9387384, 1)
+
+[node name="ground" type="ColorRect" parent="main_game"]
+layout_mode = 0
+offset_left = -18.0
+offset_top = 530.0
+offset_right = 1163.0
+offset_bottom = 667.0
+color = Color(0.67718965, 0.82861537, 0.61053365, 1)
+
+[node name="tsucaca" type="ColorRect" parent="main_game"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 263.0
+offset_right = 219.0
+offset_bottom = 528.0
+color = Color(0.9643213, 0.9406771, 0.7278708, 1)
+
+[node name="SAKAKIAHHHH" type="ColorRect" parent="main_game"]
+layout_mode = 0
+offset_left = 907.0
+offset_top = 176.0
+offset_right = 1038.0
+offset_bottom = 533.0
+color = Color(0.8560227, 0.85705173, 0.6927158, 1)
+
+[node name="wui" type="ColorRect" parent="main_game"]
+layout_mode = 0
+offset_left = 785.0
+offset_top = 201.0
+offset_right = 916.0
+offset_bottom = 535.0
+color = Color(0.86810553, 0.86678207, 0.9714878, 1)
+
+[node name="waveMachine" type="Button" parent="main_game"]
+layout_mode = 0
+offset_left = 229.0
+offset_top = 358.0
+offset_right = 369.0
+offset_bottom = 436.0
+
+[node name="ColorRect" type="ColorRect" parent="main_game/waveMachine"]
+visible = false
+layout_mode = 0
+offset_right = 140.0
+offset_bottom = 81.0
+color = Color(0.34407577, 0.34407574, 0.34407574, 1)
+
 [node name="wave_interface" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -51,6 +112,7 @@ offset_bottom = 50.0
 text = "do math stuff"
 
 [node name="solve_interface" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -188,6 +250,7 @@ offset_bottom = 634.0
 theme_override_colors/default_color = Color(1, 0, 0, 1)
 horizontal_alignment = 1
 
+[connection signal="pressed" from="main_game/waveMachine" to="manager" method="_open_wave_machine"]
 [connection signal="pressed" from="wave_interface/newWaveButton" to="wave_interface/wave" method="_create_new_wave"]
 [connection signal="pressed" from="wave_interface/Button" to="manager" method="_go_to_solve"]
 [connection signal="pressed" from="solve_interface/shoot" to="manager" method="_check_shoot"]
