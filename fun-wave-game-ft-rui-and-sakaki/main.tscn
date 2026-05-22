@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://2eyt0uxhnhvj"]
+[gd_scene load_steps=4 format=3 uid="uid://2eyt0uxhnhvj"]
 
 [ext_resource type="Script" uid="uid://sees5bj47lnx" path="res://manager.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://mjbaobdovygv" path="res://shooting_wave.gd" id="2_1bvp3"]
 [ext_resource type="Script" uid="uid://bd7i268qmnnoc" path="res://waveManager.gd" id="2_h2yge"]
 
 [node name="main" type="Node2D"]
@@ -54,19 +55,49 @@ offset_right = 916.0
 offset_bottom = 535.0
 color = Color(0.86810553, 0.86678207, 0.9714878, 1)
 
-[node name="waveMachine" type="Button" parent="main_game"]
+[node name="wave_machine" type="Button" parent="main_game"]
 layout_mode = 0
 offset_left = 229.0
 offset_top = 358.0
 offset_right = 369.0
 offset_bottom = 436.0
 
-[node name="ColorRect" type="ColorRect" parent="main_game/waveMachine"]
+[node name="ColorRect" type="ColorRect" parent="main_game/wave_machine"]
 visible = false
 layout_mode = 0
 offset_right = 140.0
 offset_bottom = 81.0
 color = Color(0.34407577, 0.34407574, 0.34407574, 1)
+
+[node name="shoot_interface" type="Control" parent="main_game"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="wave" type="Node2D" parent="main_game/shoot_interface"]
+position = Vector2(375, 392)
+script = ExtResource("2_1bvp3")
+
+[node name="wave" type="Line2D" parent="main_game/shoot_interface/wave"]
+position = Vector2(-370, -392)
+points = PackedVector2Array(370, 393, 550, 393)
+width = 2.0
+default_color = Color(0.08468992, 0.08468992, 0.08468992, 1)
+
+[node name="equilibrium" type="Line2D" parent="main_game/shoot_interface/wave"]
+position = Vector2(-370, -392)
+points = PackedVector2Array(370, 393, 550, 393)
+width = 2.0
+default_color = Color(0.6955032, 0.6955031, 0.6955032, 1)
+
+[node name="shoot_button" type="Button" parent="main_game/shoot_interface"]
+layout_mode = 0
+offset_left = 403.0
+offset_top = 554.0
+offset_right = 714.0
+offset_bottom = 628.0
+text = "SHOOT!!!!"
 
 [node name="wave_interface" type="Control" parent="."]
 visible = false
@@ -95,7 +126,7 @@ points = PackedVector2Array(6, 318, 1145, 318)
 width = 1.0
 default_color = Color(0.48570347, 0.48570353, 0.48570347, 1)
 
-[node name="newWaveButton" type="Button" parent="wave_interface"]
+[node name="new_wave_testing" type="Button" parent="wave_interface"]
 layout_mode = 0
 offset_left = 380.0
 offset_top = 17.0
@@ -103,13 +134,21 @@ offset_right = 518.0
 offset_bottom = 48.0
 text = "create new wave"
 
-[node name="Button" type="Button" parent="wave_interface"]
+[node name="solve_button" type="Button" parent="wave_interface"]
 layout_mode = 0
 offset_left = 557.0
 offset_top = 16.0
 offset_right = 690.0
 offset_bottom = 50.0
 text = "do math stuff"
+
+[node name="close_button" type="Button" parent="wave_interface"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 8.0
+offset_right = 111.0
+offset_bottom = 45.0
+text = "close"
 
 [node name="solve_interface" type="Control" parent="."]
 visible = false
@@ -180,7 +219,7 @@ layout_mode = 0
 offset_right = 483.0
 offset_bottom = 40.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-text = "Harmonic (1-5)"
+text = "Harmonic (1-9)"
 
 [node name="input" type="TextEdit" parent="solve_interface/HBoxContainer/stuffToSolve/harmonic"]
 layout_mode = 0
@@ -231,7 +270,7 @@ offset_left = 467.0
 offset_top = 564.0
 offset_right = 641.0
 offset_bottom = 595.0
-text = "shoot wave!!!!"
+text = "try shot!!!!"
 
 [node name="backButton" type="Button" parent="solve_interface"]
 layout_mode = 0
@@ -250,8 +289,10 @@ offset_bottom = 634.0
 theme_override_colors/default_color = Color(1, 0, 0, 1)
 horizontal_alignment = 1
 
-[connection signal="pressed" from="main_game/waveMachine" to="manager" method="_open_wave_machine"]
-[connection signal="pressed" from="wave_interface/newWaveButton" to="wave_interface/wave" method="_create_new_wave"]
-[connection signal="pressed" from="wave_interface/Button" to="manager" method="_go_to_solve"]
+[connection signal="pressed" from="main_game/wave_machine" to="manager" method="_open_wave_machine"]
+[connection signal="pressed" from="main_game/shoot_interface/shoot_button" to="manager" method="_try_shot"]
+[connection signal="pressed" from="wave_interface/new_wave_testing" to="wave_interface/wave" method="_create_new_wave"]
+[connection signal="pressed" from="wave_interface/solve_button" to="manager" method="_go_to_solve"]
+[connection signal="pressed" from="wave_interface/close_button" to="manager" method="_close_interfaces"]
 [connection signal="pressed" from="solve_interface/shoot" to="manager" method="_check_shoot"]
 [connection signal="pressed" from="solve_interface/backButton" to="manager" method="_switch_to_wave"]
