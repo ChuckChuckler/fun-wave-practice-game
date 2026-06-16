@@ -28,13 +28,14 @@ func _check_shoot() -> void:
 		$"../solve_interface".visible=false
 		$"../main_game".visible=true
 		$"../main_game/shoot_interface".visible=true
+		$"../main_game/shoot_interface/target".position.y=randf_range(254.0,459.0)
 
 
 func _try_shot() -> void:
 	$"../solve_interface/RichTextLabel".text=""
 	$"../main_game/shoot_interface/wave".is_being_shot=true
-	var result:bool = $"../wave_interface/wave".check_ans()
-	print_debug(result)
+	$"../main_game/shoot_interface/wave".wave_success=$"../wave_interface/wave".check_ans()
+	
 
 func _open_wave_machine() -> void:
 	$"../main_game".visible=false

@@ -1,7 +1,8 @@
 extends Node2D
 
 var target:float=-25.0
-const VELOCITY:float=20.0
+const ROTATE_VELOCITY:float=15.0
+const SHOOT_VELOCITY:float=350.0
 var is_being_shot:bool=false
 
 const FREQ:float=1.5
@@ -11,19 +12,30 @@ const AMP:float=10
 
 var time:float=0.0
 
+var wave_success:bool
+
+@onready var DEF_POS=$wave_object.position
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if !is_being_shot:
-		rotation_degrees = move_toward(rotation_degrees, target*1.05, delta*VELOCITY)
+		rotation_degrees = move_toward(rotation_degrees, target*1.05, delta*ROTATE_VELOCITY)
 		if rotation_degrees>=target-0.2 and rotation_degrees<=target+0.2:
 			target*=-1
-	
+	else:
+		if wave_success:
+			$wave_object.position=$wave_object.position.move_toward($target_correct/target.position,delta*SHOOT_VELOCITY)
+			if $wave_object.position==$target_correct/target.position and $wave_object/shoot_reset.time_left<=0:
+				$wave_object/shoot_reset.start()
+		else:
+			$wave_object.position=$wave_object.position.move_toward($target_incorrect/target.position,delta*SHOOT_VELOCITY)
+			if $wave_object.position==$target_incorrect/target.position and $wave_object/shoot_reset.time_left<=0:
+				$wave_object/shoot_reset.start()
 	time+=delta
 	update_wave()
 
@@ -39,6 +51,6 @@ func update_wave()->void:
 		
 		points.append(Vector2(x+370,y+393))	
 	
-	$wave.points=points
+	$wave_object/wave.points=points
 	
 	
