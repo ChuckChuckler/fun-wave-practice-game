@@ -29,12 +29,18 @@ func _process(delta: float) -> void:
 			target*=-1
 	else:
 		if wave_success:
+			$"../correct_incorrect".text="Correct!!!"
+			$"../correct_incorrect".add_theme_color_override("default_color",Color(0.16, 0.408, 0.12, 1.0))
 			$wave_object.position=$wave_object.position.move_toward($target_correct/target.position,delta*SHOOT_VELOCITY)
-			if $wave_object.position==$target_correct/target.position and $wave_object/shoot_reset.time_left<=0:
+			if $wave_object.position==$target_correct/target.positio and $wave_object/shoot_reset.time_left<=0:
+				$"../correct_incorrect".visible=true
 				$wave_object/shoot_reset.start()
 		else:
+			$"../correct_incorrect".text="Incorrect..."
+			$"../correct_incorrect".add_theme_color_override("default_color",Color(1.0, 0.0, 0.0, 1.0))
 			$wave_object.position=$wave_object.position.move_toward($target_incorrect/target.position,delta*SHOOT_VELOCITY)
 			if $wave_object.position==$target_incorrect/target.position and $wave_object/shoot_reset.time_left<=0:
+				$"../correct_incorrect".visible=true
 				$wave_object/shoot_reset.start()
 	time+=delta
 	update_wave()
@@ -52,5 +58,7 @@ func update_wave()->void:
 		points.append(Vector2(x+370,y+393))	
 	
 	$wave_object/wave.points=points
-	
-	
+
+func _on_shoot_reset_timeout() -> void:
+	is_being_shot=false
+	$wave_object.position=DEF_POS

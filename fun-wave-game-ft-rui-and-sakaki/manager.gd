@@ -38,10 +38,19 @@ func _try_shot() -> void:
 	
 
 func _open_wave_machine() -> void:
-	$"../main_game".visible=false
-	$"../wave_interface".visible=true
+	if $"../main_game/shoot_interface".visible:
+		return
+	else:
+		$"../main_game".visible=false
+		$"../wave_interface".visible=true
 
 
 func _close_interfaces() -> void:
 	$"../main_game".visible=true
 	$"../wave_interface".visible=false
+
+
+func _on_shoot_reset_timeout() -> void:
+	$"../main_game/shoot_interface".visible=false
+	$"../main_game/shoot_interface/correct_incorrect".visible=false
+	$"../wave_interface/wave"._create_new_wave()
